@@ -81,7 +81,8 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: colorScheme.surfaceContainer,
+                        // 使用 surfaceContainerHigh 比搜索栏浅一级，但比背景深，形成清晰层级
+                        color: colorScheme.surfaceContainerHigh,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -114,6 +115,8 @@ class _HomePageState extends State<HomePage> {
                                   color: colorScheme.onSurfaceVariant,
                                 ),
                               ),
+                              // 确保图标使用 primary 或 onSurfaceVariant 颜色，增强对比度
+                              iconColor: colorScheme.primary,
                             ),
                           ),
                         ),
