@@ -41,21 +41,23 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: lightColorScheme,
+            brightness: Brightness.light,
             useMaterial3: true,
             // 【关键配置】实现类似 Pixel 的原生页面推拉/极客缩放动画
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
-                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                TargetPlatform.android: CupertinoPageTransitionsBuilder(),
                 TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
               },
             ),
           ),
           darkTheme: ThemeData(
             colorScheme: darkColorScheme,
+            brightness: Brightness.dark,
             useMaterial3: true,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
-                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                TargetPlatform.android: CupertinoPageTransitionsBuilder(),
                 TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
               },
             ),

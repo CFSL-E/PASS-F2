@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLow,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -51,8 +51,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 elevation: WidgetStateProperty.all(0),
                 backgroundColor: WidgetStateProperty.all(
-                   // 类似截图中的淡色背景
-                  colorScheme.surfaceContainerHigh,
+                  colorScheme.surfaceContainerHighest,
                 ),
               ),
               const SizedBox(height: 20),
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: colorScheme.surfaceContainerHighest,
+                        color: colorScheme.surfaceContainer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
