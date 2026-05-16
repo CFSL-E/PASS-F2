@@ -1,16 +1,24 @@
 ```
 # Dependencies
+.pub/
+.buildlog
+.flutter-plugins
+.flutter-plugin-dependencies
+.packages
+
+# Build
+build/
 .dart_tool/
-.build/
-# Logs and temp files
-*.log
-*.tmp
-*.swp
+
 # Environment
 .env
 .env.local
-.env.*
-# Editors
-.vscode/
-.idea/
+*.env.*
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
 ```
