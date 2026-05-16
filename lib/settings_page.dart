@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
 
     // 【规范】独立的全新 Scaffold，配合大标题滑动效果
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainer,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -17,8 +17,8 @@ class SettingsPage extends StatelessWidget {
             SliverAppBar.large(
               title: const Text('设置'),
               // 当此页面向下滑动时，大标题依然保持 MD3 圆润背景或直接融入整体
-              backgroundColor: colorScheme.surfaceContainer,
-              surfaceTintColor: Colors.transparent,
+              backgroundColor: colorScheme.surfaceContainerLow,
+              surfaceTintColor: colorScheme.surfaceTint,
             ),
           ];
         },
@@ -94,20 +94,7 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
         ),
-        ...children.map((child) {
-          // 为每个列表项添加适当的背景容器，确保在浅色和深色模式下都有良好的对比度
-          if (child is ListTile) {
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: colorScheme.secondaryContainer,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: child,
-            );
-          }
-          return child;
-        }),
+        ...children,
       ],
     );
   }

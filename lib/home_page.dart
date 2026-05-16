@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainer,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -47,10 +47,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 hintText: '搜索密码',
                 hintStyle: WidgetStateProperty.all(
-                  TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16)
+                  TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.all(colorScheme.surfaceContainerHighest),
+                backgroundColor: WidgetStateProperty.all(
+                  colorScheme.surfaceContainerHighest,
+                ),
               ),
               const SizedBox(height: 20),
               
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: colorScheme.secondaryContainer,
+                        color: colorScheme.surfaceContainer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -151,13 +153,11 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected 
-              ? colorScheme.primaryContainer 
-              : colorScheme.surfaceContainerHighest,
+          color: isSelected ? colorScheme.primaryContainer.withOpacity(0.8) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: isSelected
               ? Border.all(color: Colors.transparent)
-              : Border.all(color: colorScheme.outlineVariant),
+              : Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
         ),
         child: Text(
           label,
