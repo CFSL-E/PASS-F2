@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             // 【关键配置】实现类似 Pixel 的原生页面推拉/极客缩放动画
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
-                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
                 TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
               },
             ),
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
-                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
                 TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
               },
             ),
