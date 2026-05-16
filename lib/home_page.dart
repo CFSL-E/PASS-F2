@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               // 顶部搜索栏
               SearchBar(
                 leading: IconButton(
-                  icon: Icon(Icons.menu, color: colorScheme.onSurfaceVariant),
+                  icon: const Icon(Icons.menu),
                   onPressed: () {
                     // 【规范】使用原生路由执行导航，前往真正的二级页面
                     Navigator.push(
@@ -47,13 +47,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 hintText: '搜索密码',
                 hintStyle: WidgetStateProperty.all(
-                  TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16)
+                  TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
                 backgroundColor: WidgetStateProperty.all(
                   colorScheme.surfaceContainerHighest,
                 ),
-                surfaceTintColor: Colors.transparent,
               ),
               const SizedBox(height: 20),
               
@@ -81,8 +80,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        // 使用 surfaceContainerHigh 比搜索栏浅一级，但比背景深，形成清晰层级
-                        color: colorScheme.surfaceContainerHigh,
+                        color: colorScheme.surfaceContainer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -115,8 +113,6 @@ class _HomePageState extends State<HomePage> {
                                   color: colorScheme.onSurfaceVariant,
                                 ),
                               ),
-                              // 确保图标使用 primary 或 onSurfaceVariant 颜色，增强对比度
-                              iconColor: colorScheme.primary,
                             ),
                           ),
                         ),
@@ -157,8 +153,11 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest,
+          color: isSelected ? colorScheme.primaryContainer.withOpacity(0.8) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
+          border: isSelected
+              ? Border.all(color: Colors.transparent)
+              : Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
         ),
         child: Text(
           label,
