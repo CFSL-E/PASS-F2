@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
 
     // 【规范】独立的全新 Scaffold，配合大标题滑动效果
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLow,
+      backgroundColor: colorScheme.surface,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -18,7 +18,6 @@ class SettingsPage extends StatelessWidget {
               title: const Text('设置'),
               // 当此页面向下滑动时，大标题依然保持 MD3 圆润背景或直接融入整体
               backgroundColor: colorScheme.surfaceContainerLow,
-              surfaceTintColor: colorScheme.surfaceTint,
             ),
           ];
         },
@@ -31,9 +30,9 @@ class SettingsPage extends StatelessWidget {
               title: '外观与主题',
               children: [
                 ListTile(
-                  leading: const Icon(Icons.palette_outlined),
-                  title: const Text('跟随系统主题'),
-                  subtitle: const Text('已自动提取 Android Wallpaper 色彩'),
+                  leading: Icon(Icons.palette_outlined, color: colorScheme.onSurfaceVariant),
+                  title: Text('跟随系统主题', style: TextStyle(color: colorScheme.onSurface)),
+                  subtitle: Text('已自动提取 Android Wallpaper 色彩', style: TextStyle(color: colorScheme.onSurfaceVariant)),
                   trailing: Switch(
                     value: true,
                     onChanged: (val) {},
@@ -47,14 +46,14 @@ class SettingsPage extends StatelessWidget {
               title: '本地安全',
               children: [
                 ListTile(
-                  leading: const Icon(Icons.fingerprint_outlined),
-                  title: const Text('生物识别解锁'),
-                  subtitle: const Text('使用指纹或面容进入应用'),
+                  leading: Icon(Icons.fingerprint_outlined, color: colorScheme.onSurfaceVariant),
+                  title: Text('生物识别解锁', style: TextStyle(color: colorScheme.onSurface)),
+                  subtitle: Text('使用指纹或面容进入应用', style: TextStyle(color: colorScheme.onSurfaceVariant)),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: const Icon(Icons.password_outlined),
-                  title: const Text('更改主密码'),
+                  leading: Icon(Icons.password_outlined, color: colorScheme.onSurfaceVariant),
+                  title: Text('更改主密码', style: TextStyle(color: colorScheme.onSurface)),
                   onTap: () {},
                 ),
               ],
@@ -65,9 +64,9 @@ class SettingsPage extends StatelessWidget {
               title: '关于',
               children: [
                 ListTile(
-                  leading: const Icon(Icons.info_outline),
-                  title: const Text('版本号'),
-                  subtitle: const Text('v1.0.0 (Local Only)'),
+                  leading: Icon(Icons.info_outline, color: colorScheme.onSurfaceVariant),
+                  title: Text('版本号', style: TextStyle(color: colorScheme.onSurface)),
+                  subtitle: Text('v1.0.0 (Local Only)', style: TextStyle(color: colorScheme.onSurfaceVariant)),
                   onTap: () {},
                 ),
               ],
