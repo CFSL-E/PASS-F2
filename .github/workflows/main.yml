@@ -1,0 +1,61 @@
+name: Flutter Direct Build (arm64-v8a)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+          cache: true
+
+      # 第一步：根据你的源码补全安卓和网页的“壳子”
+      # 使用 --project-name 确保与你 pubspec.yaml 中的名字一致
+      - name: Repair Project Structure
+        run: |
+          flutter create --project-name password_manager --platforms android,web .
+          # 删除自动生成的测试文件，防止因代码不匹配导致构建报错
+          rm -rf test
+          flutter pub get
+
+      # 第二步：构建 Web 版本（用于浏览器在线预览 UI）
+      - name: Build Web
+        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+
+      # 第三步：构建 Android APK（仅限 arm64-v8a）
+      - name: Build Android APK
+        run: |
+          # --target-platform android-arm64 确保只构建现代手机通用的 64 位版本
+          flutter build apk --release --target-platform android-arm64
+
+      # 第四步：部署预览网页
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+
+      # 第五步：上传 APK 文件
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: PasswordManager-arm64-v8a
+          path: build/app/outputs/flutter-apk/*.apk
