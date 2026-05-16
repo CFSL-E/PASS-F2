@@ -21,10 +21,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isLightMode = colorScheme.brightness == Brightness.light;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -52,9 +51,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 elevation: WidgetStateProperty.all(0),
                 backgroundColor: WidgetStateProperty.all(
-                  isLightMode 
-                    ? colorScheme.secondaryContainer 
-                    : colorScheme.surfaceContainerHighest,
+                  colorScheme.surfaceContainerHighest,
                 ),
               ),
               const SizedBox(height: 20),
@@ -83,9 +80,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: isLightMode 
-                          ? colorScheme.secondaryContainer.withOpacity(0.5)
-                          : colorScheme.surfaceContainerHighest,
+                        color: colorScheme.surfaceContainer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -147,7 +142,6 @@ class _HomePageState extends State<HomePage> {
   // 构建统一的视觉 Chip (还原截图中的圆角小巧设计)
   Widget _buildFilterChip(String label, int index, ColorScheme colorScheme) {
     final isSelected = _selectedChip == index;
-    final isLightMode = colorScheme.brightness == Brightness.light;
     return InkWell(
       onTap: () {
         setState(() {
@@ -159,9 +153,7 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected 
-            ? colorScheme.primaryContainer.withOpacity(0.8) 
-            : (isLightMode ? colorScheme.secondaryContainer.withOpacity(0.3) : Colors.transparent),
+          color: isSelected ? colorScheme.primaryContainer.withOpacity(0.8) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: isSelected
               ? Border.all(color: Colors.transparent)
