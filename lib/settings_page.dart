@@ -23,16 +23,17 @@ class SettingsPage extends StatelessWidget {
         },
         body: ListView(
           physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           children: [
             _buildSettingsGroup(
               context,
               title: '外观与主题',
               children: [
-                ListTile(
-                  leading: Icon(Icons.palette_outlined, color: colorScheme.onSurfaceVariant),
-                  title: Text('跟随系统主题', style: TextStyle(color: colorScheme.onSurface)),
-                  subtitle: Text('已自动提取 Android Wallpaper 色彩', style: TextStyle(color: colorScheme.onSurfaceVariant)),
+                _buildSettingsCard(
+                  context,
+                  leading: Icon(Icons.palette_outlined, color: colorScheme.primary),
+                  title: '跟随系统主题',
+                  subtitle: '已自动提取 Android Wallpaper 色彩',
                   trailing: Switch(
                     value: true,
                     onChanged: (val) {},
@@ -40,38 +41,82 @@ class SettingsPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Divider(height: 1, indent: 16, endIndent: 16),
             _buildSettingsGroup(
               context,
               title: '本地安全',
               children: [
-                ListTile(
-                  leading: Icon(Icons.fingerprint_outlined, color: colorScheme.onSurfaceVariant),
-                  title: Text('生物识别解锁', style: TextStyle(color: colorScheme.onSurface)),
-                  subtitle: Text('使用指纹或面容进入应用', style: TextStyle(color: colorScheme.onSurfaceVariant)),
+                _buildSettingsCard(
+                  context,
+                  leading: Icon(Icons.fingerprint_outlined, color: colorScheme.primary),
+                  title: '生物识别解锁',
+                  subtitle: '使用指纹或面容进入应用',
                   onTap: () {},
                 ),
-                ListTile(
-                  leading: Icon(Icons.password_outlined, color: colorScheme.onSurfaceVariant),
-                  title: Text('更改主密码', style: TextStyle(color: colorScheme.onSurface)),
+                _buildSettingsCard(
+                  context,
+                  leading: Icon(Icons.password_outlined, color: colorScheme.primary),
+                  title: '更改主密码',
                   onTap: () {},
                 ),
               ],
             ),
-            const Divider(height: 1, indent: 16, endIndent: 16),
             _buildSettingsGroup(
               context,
               title: '关于',
               children: [
-                ListTile(
-                  leading: Icon(Icons.info_outline, color: colorScheme.onSurfaceVariant),
-                  title: Text('版本号', style: TextStyle(color: colorScheme.onSurface)),
-                  subtitle: Text('v1.0.0 (Local Only)', style: TextStyle(color: colorScheme.onSurfaceVariant)),
+                _buildSettingsCard(
+                  context,
+                  leading: Icon(Icons.info_outline, color: colorScheme.primary),
+                  title: '版本号',
+                  subtitle: 'v1.0.0 (Local Only)',
                   onTap: () {},
                 ),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// 构建带 Card 包裹的设置项，确保与背景有明显区分
+  Widget _buildSettingsCard(
+    BuildContext context, {
+    required Widget leading,
+    required String title,
+    String? subtitle,
+    Widget? trailing,
+    VoidCallback? onTap,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Card(
+        elevation: 0,
+        // 使用 surfaceContainerHigh 确保卡片比背景深，形成清晰层级
+        color: colorScheme.surfaceContainerHigh,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+            child: ListTile(
+              leading: leading,
+              title: Text(
+                title,
+                style: TextStyle(
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: subtitle != null ? Text(subtitle, style: TextStyle(color: colorScheme.onSurfaceVariant)) : null,
+              trailing: trailing,
+            ),
+          ),
         ),
       ),
     );
@@ -83,7 +128,7 @@ class SettingsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 8.0),
+          padding: const EdgeInsets.only(left: 8.0, top: 16.0, bottom: 8.0),
           child: Text(
             title,
             style: TextStyle(
