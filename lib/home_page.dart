@@ -21,9 +21,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLow,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -50,20 +51,24 @@ class _HomePageState extends State<HomePage> {
                   TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.all(
-                  colorScheme.surfaceContainerHighest,
-                ),
+                backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (isDark) {
+                    return colorScheme.surfaceContainerHighest;
+                  } else {
+                    return colorScheme.secondaryContainer;
+                  }
+                }),
               ),
               const SizedBox(height: 20),
               
               // 筛选标签行
               Row(
                 children: [
-                  _buildFilterChip('全部', 0, colorScheme),
+                  _buildFilterChip('全部', 0, colorScheme, isDark),
                   const SizedBox(width: 8),
-                  _buildFilterChip('最近添加', 1, colorScheme),
+                  _buildFilterChip('最近添加', 1, colorScheme, isDark),
                   const SizedBox(width: 8),
-                  _buildFilterChip('常用', 2, colorScheme),
+                  _buildFilterChip('常用', 2, colorScheme, isDark),
                 ],
               ),
               const SizedBox(height: 20),
@@ -80,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: colorScheme.surfaceContainer,
+                        color: isDark ? colorScheme.surfaceContainer : colorScheme.primaryContainer.withOpacity(0.3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -140,7 +145,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // 构建统一的视觉 Chip (还原截图中的圆角小巧设计)
-  Widget _buildFilterChip(String label, int index, ColorScheme colorScheme) {
+  Widget _buildFilterChip(String label, int index, ColorScheme colorScheme, bool isDark) {
     final isSelected = _selectedChip == index;
     return InkWell(
       onTap: () {
@@ -153,7 +158,9 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primaryContainer.withOpacity(0.8) : Colors.transparent,
+          color: isSelected 
+              ? colorScheme.primaryContainer.withOpacity(0.8) 
+              : (isDark ? colorScheme.surfaceContainerHighest : colorScheme.secondaryContainer.withOpacity(0.5)),
           borderRadius: BorderRadius.circular(8),
           border: isSelected
               ? Border.all(color: Colors.transparent)
