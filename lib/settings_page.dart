@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
 
     // 【规范】独立的全新 Scaffold，配合大标题滑动效果
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
             SliverAppBar.large(
               title: const Text('设置'),
               // 当此页面向下滑动时，大标题依然保持 MD3 圆润背景或直接融入整体
-              backgroundColor: colorScheme.surface,
+              backgroundColor: colorScheme.surfaceContainerLow,
               surfaceTintColor: colorScheme.surfaceTint,
             ),
           ];
