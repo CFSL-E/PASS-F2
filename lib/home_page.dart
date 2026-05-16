@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -50,11 +50,9 @@ class _HomePageState extends State<HomePage> {
                   TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  // 确保搜索框与背景有明显区分
-                  return colorScheme.surfaceContainerHigh;
-                }),
-                foregroundColor: WidgetStateProperty.all(colorScheme.onSurface),
+                backgroundColor: WidgetStateProperty.all(
+                  colorScheme.surfaceContainerHighest,
+                ),
               ),
               const SizedBox(height: 20),
               
@@ -82,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: colorScheme.surfaceContainerHigh,
+                        color: colorScheme.surfaceContainer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
