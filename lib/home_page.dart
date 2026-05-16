@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 hintText: '搜索密码',
                 hintStyle: WidgetStateProperty.all(
-                  TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16)
+                  TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
                 backgroundColor: WidgetStateProperty.all(
@@ -153,12 +153,11 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest,
+          color: isSelected ? colorScheme.primaryContainer.withOpacity(0.8) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            width: isSelected ? 0 : 1,
-            color: colorScheme.outlineVariant,
-          ),
+          border: isSelected
+              ? Border.all(color: Colors.transparent)
+              : Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
         ),
         child: Text(
           label,
