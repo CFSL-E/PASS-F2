@@ -40,7 +40,12 @@ class MyApp extends StatelessWidget {
           title: '密码管理',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            colorScheme: lightColorScheme,
+            colorScheme: lightDynamic != null
+                ? lightDynamic.harmonized().copyWith(
+                    // 强制增强背景的色调偏向，避免纯白，提升动态色感
+                    surface: lightDynamic.surface.withAlpha(250),
+                  )
+                : lightColorScheme,
             brightness: Brightness.light,
             useMaterial3: true,
             // 【关键配置】实现类似 Pixel 的原生页面推拉/极客缩放动画
@@ -52,7 +57,11 @@ class MyApp extends StatelessWidget {
             ),
           ),
           darkTheme: ThemeData(
-            colorScheme: darkColorScheme,
+            colorScheme: darkDynamic != null
+                ? darkDynamic.harmonized().copyWith(
+                    surface: darkDynamic.surface.withAlpha(250),
+                  )
+                : darkColorScheme,
             brightness: Brightness.dark,
             useMaterial3: true,
             pageTransitionsTheme: const PageTransitionsTheme(

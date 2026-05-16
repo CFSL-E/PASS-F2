@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLow,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               // 顶部搜索栏
               SearchBar(
                 leading: IconButton(
-                  icon: const Icon(Icons.menu),
+                  icon: Icon(Icons.menu, color: colorScheme.primary),
                   onPressed: () {
                     // 【规范】使用原生路由执行导航，前往真正的二级页面
                     Navigator.push(
@@ -80,7 +80,8 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: colorScheme.surfaceContainer,
+                        // 使用 surfaceContainerHigh 比 surfaceContainer 更深一级，增强对比度
+                        color: colorScheme.surfaceContainerHigh,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),

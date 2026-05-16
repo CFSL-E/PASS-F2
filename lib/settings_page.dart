@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
 
     // 【规范】独立的全新 Scaffold，配合大标题滑动效果
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLow,
+      backgroundColor: colorScheme.surface,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
             SliverAppBar.large(
               title: const Text('设置'),
               // 当此页面向下滑动时，大标题依然保持 MD3 圆润背景或直接融入整体
-              backgroundColor: colorScheme.surfaceContainerLow,
+              backgroundColor: colorScheme.surface,
               surfaceTintColor: colorScheme.surfaceTint,
             ),
           ];
@@ -31,7 +31,7 @@ class SettingsPage extends StatelessWidget {
               title: '外观与主题',
               children: [
                 ListTile(
-                  leading: const Icon(Icons.palette_outlined),
+                  leading: Icon(Icons.palette_outlined, color: colorScheme.primary),
                   title: const Text('跟随系统主题'),
                   subtitle: const Text('已自动提取 Android Wallpaper 色彩'),
                   trailing: Switch(
@@ -47,13 +47,13 @@ class SettingsPage extends StatelessWidget {
               title: '本地安全',
               children: [
                 ListTile(
-                  leading: const Icon(Icons.fingerprint_outlined),
+                  leading: Icon(Icons.fingerprint_outlined, color: colorScheme.primary),
                   title: const Text('生物识别解锁'),
                   subtitle: const Text('使用指纹或面容进入应用'),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: const Icon(Icons.password_outlined),
+                  leading: Icon(Icons.password_outlined, color: colorScheme.primary),
                   title: const Text('更改主密码'),
                   onTap: () {},
                 ),
@@ -65,7 +65,7 @@ class SettingsPage extends StatelessWidget {
               title: '关于',
               children: [
                 ListTile(
-                  leading: const Icon(Icons.info_outline),
+                  leading: Icon(Icons.info_outline, color: colorScheme.primary),
                   title: const Text('版本号'),
                   subtitle: const Text('v1.0.0 (Local Only)'),
                   onTap: () {},
