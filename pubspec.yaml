@@ -1,0 +1,19 @@
+name: password_manager
+description: A local-only password manager built with Material Design 3.
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dynamic_color: ^1.6.8 # 用于提取系统 Monet 动态强调色
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
