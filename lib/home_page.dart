@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLow,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               // 顶部搜索栏
               SearchBar(
                 leading: IconButton(
-                  icon: const Icon(Icons.menu),
+                  icon: Icon(Icons.menu, color: colorScheme.onSurfaceVariant),
                   onPressed: () {
                     // 【规范】使用原生路由执行导航，前往真正的二级页面
                     Navigator.push(
@@ -47,12 +47,13 @@ class _HomePageState extends State<HomePage> {
                 ),
                 hintText: '搜索密码',
                 hintStyle: WidgetStateProperty.all(
-                  TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
+                  TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
                 backgroundColor: WidgetStateProperty.all(
                   colorScheme.surfaceContainerHighest,
                 ),
+                surfaceTintColor: Colors.transparent,
               ),
               const SizedBox(height: 20),
               
@@ -153,11 +154,8 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primaryContainer.withOpacity(0.8) : Colors.transparent,
+          color: isSelected ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
-          border: isSelected
-              ? Border.all(color: Colors.transparent)
-              : Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
         ),
         child: Text(
           label,
