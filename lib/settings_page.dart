@@ -6,11 +6,10 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     // 【规范】独立的全新 Scaffold，配合大标题滑动效果
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainer,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -18,8 +17,8 @@ class SettingsPage extends StatelessWidget {
             SliverAppBar.large(
               title: const Text('设置'),
               // 当此页面向下滑动时，大标题依然保持 MD3 圆润背景或直接融入整体
-              backgroundColor: colorScheme.surface,
-              surfaceTintColor: colorScheme.surfaceTint,
+              backgroundColor: colorScheme.surfaceContainer,
+              surfaceTintColor: Colors.transparent,
             ),
           ];
         },
@@ -81,7 +80,6 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildSettingsGroup(BuildContext context, {required String title, required List<Widget> children}) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -102,9 +100,7 @@ class SettingsPage extends StatelessWidget {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: isDark 
-                    ? colorScheme.surfaceContainerHighest 
-                    : colorScheme.secondaryContainer.withOpacity(0.5),
+                color: colorScheme.secondaryContainer,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: child,

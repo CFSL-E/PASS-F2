@@ -21,10 +21,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surfaceContainer,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -48,27 +47,21 @@ class _HomePageState extends State<HomePage> {
                 ),
                 hintText: '搜索密码',
                 hintStyle: WidgetStateProperty.all(
-                  TextStyle(color: colorScheme.onSurfaceVariant.withOpacity(0.8), fontSize: 16)
+                  TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16)
                 ),
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (isDark) {
-                    return colorScheme.surfaceContainerHighest;
-                  } else {
-                    return colorScheme.secondaryContainer;
-                  }
-                }),
+                backgroundColor: WidgetStateProperty.all(colorScheme.surfaceContainerHighest),
               ),
               const SizedBox(height: 20),
               
               // 筛选标签行
               Row(
                 children: [
-                  _buildFilterChip('全部', 0, colorScheme, isDark),
+                  _buildFilterChip('全部', 0, colorScheme),
                   const SizedBox(width: 8),
-                  _buildFilterChip('最近添加', 1, colorScheme, isDark),
+                  _buildFilterChip('最近添加', 1, colorScheme),
                   const SizedBox(width: 8),
-                  _buildFilterChip('常用', 2, colorScheme, isDark),
+                  _buildFilterChip('常用', 2, colorScheme),
                 ],
               ),
               const SizedBox(height: 20),
@@ -85,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       child: Card(
                         elevation: 0,
                         // 还原截图中的扁平大圆角淡色气泡卡片设计
-                        color: isDark ? colorScheme.surfaceContainer : colorScheme.primaryContainer.withOpacity(0.3),
+                        color: colorScheme.secondaryContainer,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -145,7 +138,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // 构建统一的视觉 Chip (还原截图中的圆角小巧设计)
-  Widget _buildFilterChip(String label, int index, ColorScheme colorScheme, bool isDark) {
+  Widget _buildFilterChip(String label, int index, ColorScheme colorScheme) {
     final isSelected = _selectedChip == index;
     return InkWell(
       onTap: () {
@@ -159,12 +152,12 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected 
-              ? colorScheme.primaryContainer.withOpacity(0.8) 
-              : (isDark ? colorScheme.surfaceContainerHighest : colorScheme.secondaryContainer.withOpacity(0.5)),
+              ? colorScheme.primaryContainer 
+              : colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
           border: isSelected
               ? Border.all(color: Colors.transparent)
-              : Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+              : Border.all(color: colorScheme.outlineVariant),
         ),
         child: Text(
           label,
